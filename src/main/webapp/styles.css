@@ -1,0 +1,20 @@
+body{
+	background-color: darkgray;
+	text-align: center;
+}
+
+h1{
+	color: rebeccapurple;
+	font-size: 5em;
+}
+
+h2{
+	color: darkgreen;
+	font-size: 3em;
+}
+
+label{
+	display: inline-block;
+	width: 150px;
+	text-align: left;
+}
