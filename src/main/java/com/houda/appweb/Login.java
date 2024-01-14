@@ -1,13 +1,12 @@
 package com.houda.appweb;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Login
@@ -33,31 +32,14 @@ public class Login extends HttpServlet {
         if ( login == null ) login = "";
         if ( password == null ) password = "";
         
-		response.setContentType("text/html");//on choisi le type text on choisir pdf image ...
-		try (PrintWriter out = response.getWriter()){
-			out.println( "<!DOCTYPE html>" );
-            out.println( "<html>" );
-            out.println( "    <head>" );
-            out.println( "        <title>Veuillez vous identifier</title>" );
-            out.println( "        <link rel='stylesheet' type='text/css' href='styles.css' />" );
-            out.println( "    </head>" );
-            out.println( "    <body>" );
-            out.println( "        <h1>Titre 1</h1>" );
-            out.println( "        <h2>" + new Date() + "</h2>" );
-            
-            out.println( "        <form method='POST' action='login'>" );
-            out.println( "            <label for='txtLogin'>Login :</label>" ); 
-            out.println( "            <input id='txtLogin' name='txtLogin' type='text' value='" + login + "' autofocus /><br/>" );
-            out.println( "            <label for='txtPassword'>Password :</label>" ); 
-            out.println( "            <input name='txtPassword' type='password' value='" + password + "' /><br/>" );
-            out.println( "            <br/>" );
-            out.println( "            <input name='btnConnect' type='submit' value='Se connecter' /><br/>" );
-            out.println( "        </form>" );
-            
-            out.println( "    </body>" );
-            out.println( "</html>" );
-			
-		} 
+        //******** enregistre login et password en session ***********//
+        // HttpSession comme un table on peut enregistre cle et donne 
+        HttpSession session = request.getSession( true );
+        session.setAttribute( "login", login );
+        session.setAttribute( "password", password );
+        //****** rediriger vers le vue *************//
+        request.getRequestDispatcher( "/Login.jsp" ).forward( request, response );
+        
 	}
 
 	/**
@@ -67,16 +49,21 @@ public class Login extends HttpServlet {
         String login = request.getParameter( "txtLogin" );
         String password = request.getParameter( "txtPassword" );
         //on garde le password et login que nous le tapez meme on refreche le page
-         
-        System.out.println( "recharge le page" );
+        
+        HttpSession session = request.getSession( true );
+        session.setAttribute( "login", login );
+        session.setAttribute( "password", password );
 
-        if ( login.equals( "houda" ) && password.equals( "1983" ) ) {
-            response.setContentType( "text/html" );
-            try ( PrintWriter out = response.getWriter() ) {
-                  out.println( "VOUS ËTES CONNECTES" );
-            }
+        System.out.println( "recharge le page" );
+        
+        if ( login.trim().equals( "houda" ) && password.trim().equals( "1983" )||
+        		login.trim().equals( "assil" ) && password.trim().equals( "2014" )) {
+            session.setAttribute( "isConnected", true );
+            request.getRequestDispatcher( "/Connected.jsp" ).forward( request, response );
         } else {
-            doGet( request, response );
+            session.setAttribute( "isConnected", false );
+            request.getRequestDispatcher( "/Login.jsp" ).forward( request, response );
         }
     }
+	
 }
