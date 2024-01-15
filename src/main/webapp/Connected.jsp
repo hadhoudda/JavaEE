@@ -8,6 +8,7 @@
     </head>
     <body>
         <h1>Bienvenue ${login} vous êtes connectés </h1>
-                 
+        <p>Bonjour ${ u1.prenom } ${ u1.nom }</p>
+        <p>${ u1.actif ? 'Vous êtes très actif !' : 'Vous êtes inactif !' }</p>
     </body>
 </html>

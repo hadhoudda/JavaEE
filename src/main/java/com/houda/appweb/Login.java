@@ -2,6 +2,8 @@ package com.houda.appweb;
 
 import java.io.IOException;
 
+import com.houda.beans.User;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +28,10 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		User u1 = new User("houda","ben", true);
+		User u2 = new User("Sajed","ben", true);
+		User u3 = new User("selsabil","ben", true);
+		User u4 = new User("Mimi","ben", false);
 		String login = request.getParameter( "txtLogin" );
         String password = request.getParameter( "txtPassword" );
         if ( login == null ) login = "";
@@ -54,7 +59,7 @@ public class Login extends HttpServlet {
         session.setAttribute( "login", login );
         session.setAttribute( "password", password );
 
-        System.out.println( "recharge le page" );
+        System.out.println( "recharge la page" );
         
         if ( login.trim().equals( "houda" ) && password.trim().equals( "1983" )||
         		login.trim().equals( "assil" ) && password.trim().equals( "2014" )) {
