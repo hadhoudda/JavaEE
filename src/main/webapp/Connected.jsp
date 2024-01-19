@@ -1,4 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,5 +11,7 @@
         <h1>Bienvenue ${login} vous êtes connectés </h1>
         <p>Bonjour ${ u1.prenom } ${ u1.nom }</p>
         <p>${ u1.actif ? 'Vous êtes très actif !' : 'Vous êtes inactif !' }</p>
+        
+        
     </body>
 </html>
